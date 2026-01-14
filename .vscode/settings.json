@@ -1,0 +1,16 @@
+{
+  "workbench.colorTheme": "Default Light Modern",
+  "window.autoDetectColorScheme": false,
+  "workbench.colorCustomizations": {
+    "editor.background": "#FFFFFF",
+    "sideBar.background": "#FFFFFF",
+    "activityBar.background": "#FFFFFF",
+    "statusBar.background": "#007ACC",
+    "panel.background": "#FFFFFF",
+    "terminal.background": "#FFFFFF"
+  },
+  "workbench.preferredLightColorTheme": "Cursor Light",
+  "workbench.preferredDarkColorTheme": "Monokai",
+  "claudeCode.preferredLocation": "sidebar",
+  "claudeCode.selectedModel": "default"
+}

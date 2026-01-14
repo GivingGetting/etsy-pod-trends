@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy POD 趋势分析 | 市场洞察工具</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- 侧边导航 -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">POD Trends</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>仪表板</span>
+                </li>
+                <li class="nav-item" data-page="categories">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                    <span>品类分析</span>
+                </li>
+                <li class="nav-item" data-page="styles">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4"/>
+                        <path d="M12 8h.01"/>
+                    </svg>
+                    <span>风格趋势</span>
+                </li>
+                <li class="nav-item" data-page="seasonal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <span>季节趋势</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="update-time">
+                    <span>数据更新于</span>
+                    <span id="updateTime">2026-01-14</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 头部 -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 id="pageTitle">仪表板</h1>
+                    <p class="header-subtitle">Etsy POD 产品市场趋势概览</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" placeholder="搜索品类或关键词...">
+                    </div>
+                </div>
+            </header>
+
+            <!-- 仪表板页面 -->
+            <section id="dashboard" class="page active">
+                <!-- 统计卡片 -->
+                <div class="stats-grid">
+                    <div class="stat-card gradient-purple">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 6l-9.5 9.5-5-5L1 18"/>
+                                <path d="M17 6h6v6"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">热门品类</span>
+                            <span class="stat-value">T恤设计</span>
+                            <span class="stat-change positive">+23% 增长</span>
+                        </div>
+                    </div>
+                    <div class="stat-card gradient-blue">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">流行风格</span>
+                            <span class="stat-value">极简主义</span>
+                            <span class="stat-change positive">+18% 增长</span>
+                        </div>
+                    </div>
+                    <div class="stat-card gradient-green">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">季节热点</span>
+                            <span class="stat-value">情人节</span>
+                            <span class="stat-change">即将到来</span>
+                        </div>
+                    </div>
+                    <div class="stat-card gradient-orange">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">新兴利基</span>
+                            <span class="stat-value">宠物用品</span>
+                            <span class="stat-change positive">+45% 增长</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 图表区域 -->
+                <div class="charts-grid">
+                    <div class="chart-card large">
+                        <div class="chart-header">
+                            <h3>品类趋势变化</h3>
+                            <div class="chart-legend">
+                                <span class="legend-item"><span class="dot purple"></span>服装</span>
+                                <span class="legend-item"><span class="dot blue"></span>家居</span>
+                                <span class="legend-item"><span class="dot green"></span>配件</span>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>品类份额分布</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 排行榜 -->
+                <div class="ranking-section">
+                    <div class="ranking-card">
+                        <div class="ranking-header">
+                            <h3>🔥 热门品类 TOP 5</h3>
+                        </div>
+                        <ul class="ranking-list" id="categoryRanking">
+                            <!-- 动态生成 -->
+                        </ul>
+                    </div>
+                    <div class="ranking-card">
+                        <div class="ranking-header">
+                            <h3>🎨 流行风格 TOP 5</h3>
+                        </div>
+                        <ul class="ranking-list" id="styleRanking">
+                            <!-- 动态生成 -->
+                        </ul>
+                    </div>
+                    <div class="ranking-card">
+                        <div class="ranking-header">
+                            <h3>📈 增长最快 TOP 5</h3>
+                        </div>
+                        <ul class="ranking-list" id="growthRanking">
+                            <!-- 动态生成 -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 品类分析页面 -->
+            <section id="categories" class="page">
+                <div class="category-grid">
+                    <div class="category-card" data-category="apparel">
+                        <div class="category-icon">👕</div>
+                        <h3>服装类</h3>
+                        <p>T恤、卫衣、帽子等</p>
+                        <div class="category-stats">
+                            <span class="category-growth positive">+23%</span>
+                            <span class="category-volume">月销 12.5K</span>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="home">
+                        <div class="category-icon">🏠</div>
+                        <h3>家居装饰</h3>
+                        <p>海报、帆布画、枕套等</p>
+                        <div class="category-stats">
+                            <span class="category-growth positive">+18%</span>
+                            <span class="category-volume">月销 8.2K</span>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="accessories">
+                        <div class="category-icon">☕</div>
+                        <h3>配件类</h3>
+                        <p>马克杯、手机壳、帆布包等</p>
+                        <div class="category-stats">
+                            <span class="category-growth positive">+15%</span>
+                            <span class="category-volume">月销 6.8K</span>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="stickers">
+                        <div class="category-icon">🏷️</div>
+                        <h3>贴纸文具</h3>
+                        <p>贴纸、笔记本、明信片等</p>
+                        <div class="category-stats">
+                            <span class="category-growth positive">+32%</span>
+                            <span class="category-volume">月销 9.1K</span>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" style="width: 72%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 子品类详情 -->
+                <div class="subcategory-section">
+                    <h3>服装类细分趋势</h3>
+                    <div class="subcategory-grid">
+                        <div class="subcategory-item">
+                            <span class="subcategory-name">图案T恤</span>
+                            <span class="subcategory-trend positive">↑ 28%</span>
+                            <div class="mini-bar"><div class="mini-fill" style="width: 90%"></div></div>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-name">连帽卫衣</span>
+                            <span class="subcategory-trend positive">↑ 22%</span>
+                            <div class="mini-bar"><div class="mini-fill" style="width: 78%"></div></div>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-name">棒球帽</span>
+                            <span class="subcategory-trend positive">↑ 15%</span>
+                            <div class="mini-bar"><div class="mini-fill" style="width: 62%"></div></div>
+                        </div>
+                        <div class="subcategory-item">
+                            <span class="subcategory-name">背心</span>
+                            <span class="subcategory-trend negative">↓ 5%</span>
+                            <div class="mini-bar"><div class="mini-fill" style="width: 35%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 风格趋势页面 -->
+            <section id="styles" class="page">
+                <div class="styles-container">
+                    <!-- 标签云 -->
+                    <div class="tag-cloud-section">
+                        <h3>热门设计风格</h3>
+                        <div class="tag-cloud" id="tagCloud">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 颜色趋势 -->
+                    <div class="color-trends">
+                        <h3>流行色彩趋势</h3>
+                        <div class="color-palette" id="colorPalette">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 风格详情 -->
+                    <div class="style-details">
+                        <h3>风格详细分析</h3>
+                        <div class="style-cards" id="styleCards">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 季节趋势页面 -->
+            <section id="seasonal" class="page">
+                <div class="seasonal-timeline">
+                    <h3>年度季节性热点</h3>
+                    <div class="timeline" id="seasonalTimeline">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <div class="upcoming-events">
+                    <h3>即将到来的节日/事件</h3>
+                    <div class="events-grid" id="upcomingEvents">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <div class="seasonal-chart">
+                    <h3>季节性销售趋势</h3>
+                    <div class="chart-body">
+                        <canvas id="seasonalChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
